@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+    .add-book {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 10px;
+    }
+    .add-book input {
+      padding: 8px;
+    }
+    .add-book button {
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background: #222;
+      color: #fff;
+    }
+    .issued {
+      color: red;
+      font-weight: bold;
+    }
+    .available {
+      color: green;
+      font-weight: bold;
+    }
+    button.issue-btn {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Library Book Management</h1>
+
+    <!-- Add Book Section -->
+    <div class="add-book">
+      <input type="text" id="bookName" placeholder="Book Name" />
+      <input type="text" id="authorName" placeholder="Author" />
+      <input type="text" id="bookId" placeholder="Book ID" />
+      <button onclick="addBook()">Add Book</button>
+    </div>
+
+    <!-- Book Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Book Name</th>
+          <th>Author</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="bookList"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const books = [
+      { id: 'B001', name: 'C Programming', author: 'Dennis Ritchie', issued: false },
+      { id: 'B002', name: 'C++ Primer', author: 'Stanley Lippman', issued: false },
+      { id: 'B003', name: 'Java Basics', author: 'Herbert Schildt', issued: false },
+      { id: 'B004', name: 'Python Crash Course', author: 'Eric Matthes', issued: false },
+      { id: 'B005', name: 'Data Structures', author: 'Seymour Lipschutz', issued: false },
+      { id: 'B006', name: 'Algorithms', author: 'CLRS', issued: false },
+      { id: 'B007', name: 'Operating Systems', author: 'Galvin', issued: false },
+      { id: 'B008', name: 'DBMS', author: 'Korth', issued: false },
+      { id: 'B009', name: 'Computer Networks', author: 'Tanenbaum', issued: false },
+      { id: 'B010', name: 'Software Engineering', author: 'Pressman', issued: false },
+      { id: 'B011', name: 'Web Development', author: 'MDN', issued: false },
+      { id: 'B012', name: 'HTML & CSS', author: 'Jon Duckett', issued: false },
+      { id: 'B013', name: 'JavaScript Guide', author: 'Eloquent JS', issued: false },
+      { id: 'B014', name: 'React Basics', author: 'Meta', issued: false },
+      { id: 'B015', name: 'Node.js', author: 'Node Docs', issued: false },
+      { id: 'B016', name: 'Git & GitHub', author: 'Chacon', issued: false },
+      { id: 'B017', name: 'Computer Graphics', author: 'Hearn', issued: false },
+      { id: 'B018', name: 'AI Basics', author: 'Stuart Russell', issued: false },
+      { id: 'B019', name: 'Machine Learning', author: 'Tom Mitchell', issued: false },
+      { id: 'B020', name: 'Cyber Security', author: 'Nina Godbole', issued: false }
+    ];
+
+    function renderBooks() {
+      const list = document.getElementById('bookList');
+      list.innerHTML = '';
+
+      books.forEach((book, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${book.id}</td>
+          <td>${book.name}</td>
+          <td>${book.author}</td>
+          <td class="${book.issued ? 'issued' : 'available'}">
+            ${book.issued ? 'Issued' : 'Available'}
+          </td>
+          <td>
+            <button class="issue-btn" onclick="toggleIssue(${index})">
+              ${book.issued ? 'Return' : 'Issue'}
+            </button>
+          </td>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    function toggleIssue(index) {
+      books[index].issued = !books[index].issued;
+      renderBooks();
+    }
+
+    function addBook() {
+      const name = document.getElementById('bookName').value.trim();
+      const author = document.getElementById('authorName').value.trim();
+      const id = document.getElementById('bookId').value.trim();
+
+      if (!name || !author || !id) {
+        alert('Please fill all fields');
+        return;
+      }
+
+      books.push({ id, name, author, issued: false });
+      document.getElementById('bookName').value = '';
+      document.getElementById('authorName').value = '';
+      document.getElementById('bookId').value = '';
+      renderBooks();
+    }
+
+    renderBooks();
+  </script>
+</body>
+</html>

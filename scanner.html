@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book QR Generator & Scanner</title>
+    <link rel="stylesheet" href="style2.css">
+
+    <!-- QR Generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+    <!-- QR Scanner -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Book QR App</h1>
+
+    <!-- QR Generator -->
+    <h2>Generate QR</h2>
+    <input type="text" id="bookInput" placeholder="Enter book name / author / link">
+    <button onclick="generateQR()">Generate QR</button>
+    <div id="qrCode"></div>
+
+    <!-- QR Scanner -->
+    <h2>Scan QR</h2>
+    <div id="reader"></div>
+
+    <!-- Scanned Books List -->
+    <h2>Scanned Books</h2>
+    <ul id="bookList"></ul>
+</div>
+
+<script src="script2.js"></script>
+</body>
+</html>
